@@ -5,7 +5,6 @@ namespace App\Http\Controllers\Auth;
 use App\Http\Controllers\Controller;
 use App\Models\User;
 use Illuminate\Foundation\Auth\RegistersUsers;
-use Illuminate\Http\Request; // Import Request class
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Validator;
 
@@ -17,7 +16,7 @@ class RegisterController extends Controller
     |--------------------------------------------------------------------------
     |
     | This controller handles the registration of new users as well as their
-    | validation and creation. By default, this controller uses a trait to
+    | validation and creation. By default this controller uses a trait to
     | provide this functionality without requiring any additional code.
     |
     */
@@ -50,11 +49,9 @@ class RegisterController extends Controller
     protected function validator(array $data)
     {
         return Validator::make($data, [
-            'username' => ['required', 'string', 'max:255'],
+            'name' => ['required', 'string', 'max:255'],
             'email' => ['required', 'string', 'email', 'max:255', 'unique:users'],
             'password' => ['required', 'string', 'min:8', 'confirmed'],
-            'gender' => ['required', 'string', 'in:male,female,other'],
-            'image' => ['nullable', 'image', 'max:2048'],
         ]);
     }
 
@@ -66,31 +63,10 @@ class RegisterController extends Controller
      */
     protected function create(array $data)
     {
-        $imagePath = isset($data['image']) ? $data['image']->store('profile_images', 'public') : null;
-
         return User::create([
-            'username' => $data['username'],
+            'name' => $data['name'],
             'email' => $data['email'],
             'password' => Hash::make($data['password']),
-            'gender' => $data['gender'],
-            'image' => $imagePath,
-            'role' => $data['role'] ?? 'user', // default to 'user' if not provided
         ]);
-    }
-
-    public function register(Request $request)
-    {
-        $this->validator($request->all())->validate();
-
-        $data = $request->all();
-        if ($request->hasFile('image')) {
-            $data['image'] = $request->file('image');
-        }
-
-        $user = $this->create($data);
-
-        $this->guard()->login($user);
-
-        return $this->registered($request, $user) ?: redirect($this->redirectPath());
     }
 }
