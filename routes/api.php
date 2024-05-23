@@ -21,18 +21,18 @@ use App\Http\Controllers\Api\PromotionController;
 //     return $request->user();
 // });
 
-Route::get('/products',[ProductController::class,'index']);
-Route::post('/products',[ProductController::class,'store']);
+Route::get('/products', [ProductController::class, 'index']);
+Route::post('/products', [ProductController::class, 'store']);
 Route::get('/products/{id}', [ProductController::class, 'show']);
 Route::put('/products/{id}', [ProductController::class, 'update']);
 Route::delete('/products/{id}', [ProductController::class, 'destroy']);
 
-
-Route::get('/category',[CategoryController::class,'index']);
-Route::post('/category',[CategoryController::class,'store']);
+Route::get('/category', [CategoryController::class, 'index']);
+Route::post('/category', [CategoryController::class, 'store']);
 Route::get('/category/{id}', [CategoryController::class, 'show']);
 Route::put('/category/{id}', [CategoryController::class, 'update']);
 Route::delete('/category/{id}', [CategoryController::class, 'destroy']);
+<<<<<<< HEAD
 
 Route::get('/promotion',[PromotionController::class,'index']);
 Route::post('/promotion',[PromotionController::class,'store']);
@@ -40,3 +40,5 @@ Route::get('/promotion/{id}', [PromotionController::class, 'show']);
 Route::put('/promotion/{id}', [PromotionController::class, 'update']);
 Route::delete('/promotion/{id}', [PromotionController::class, 'destroy']);
 
+=======
+>>>>>>> b3dbb79990c33e6ed700b442eebe06c067e43f78

@@ -18,9 +18,12 @@ class User extends Authenticatable
      * @var array<int, string>
      */
     protected $fillable = [
-        'name',
+        'username',
         'email',
         'password',
+        'gender',
+        'image',
+        'role',
     ];
 
     /**
@@ -42,4 +45,16 @@ class User extends Authenticatable
         'email_verified_at' => 'datetime',
         'password' => 'hashed',
     ];
+
+
+    /**
+     * Accessor for the image attribute.
+     *
+     * @param  string  $value
+     * @return string|null
+     */
+    public function getImageAttribute($value)
+    {
+        return $value ? Storage::url($value) : null;
+    }
 }
