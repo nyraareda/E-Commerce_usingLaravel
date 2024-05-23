@@ -4,6 +4,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Api\ProductController;
 use App\Http\Controllers\Api\CategoryController;
+use App\Http\Controllers\Api\PromotionController;
 
 /*
 |--------------------------------------------------------------------------
@@ -32,4 +33,10 @@ Route::post('/category',[CategoryController::class,'store']);
 Route::get('/category/{id}', [CategoryController::class, 'show']);
 Route::put('/category/{id}', [CategoryController::class, 'update']);
 Route::delete('/category/{id}', [CategoryController::class, 'destroy']);
+
+Route::get('/promotion',[PromotionController::class,'index']);
+Route::post('/promotion',[PromotionController::class,'store']);
+Route::get('/promotion/{id}', [PromotionController::class, 'show']);
+Route::put('/promotion/{id}', [PromotionController::class, 'update']);
+Route::delete('/promotion/{id}', [PromotionController::class, 'destroy']);
 

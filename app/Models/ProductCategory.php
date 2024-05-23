@@ -1,20 +1,20 @@
 <?php
 
 namespace App\Models;
-use App\Models\Promotion;
+
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class Product extends Model
+class ProductCategory extends Model
 {
-    use HasFactory;
+    protected $table = 'product_categories';
+    protected $fillable = ['product_id', 'category_id'];
 
-    protected $fillable = ['title', 'image', 'price', 'details'];
 
-    // public function promotion(){
-
-    //     return $this->belongsTo(Promotion::class);
-    // }
+    public function product()
+    {
+        return $this->belongsTo(Product::class);
+    }
 
     public function productCategory()
     {
@@ -25,10 +25,9 @@ class Product extends Model
     // {
     //     return $this->hasOneThrough(Category::class, ProductCategory::class, 'product_id', 'id', 'id', 'category_id');
     // }
+
     public function category()
     {
-        return $this->belongsToMany(Category::class, 'product_categories');
+        return $this->belongsTo(Category::class);
     }
-
-
 }
