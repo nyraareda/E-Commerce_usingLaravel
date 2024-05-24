@@ -7,7 +7,7 @@ use App\Http\Controllers\Api\CategoryController;
 use App\Http\Controllers\Api\PromotionController;
 use App\Http\Controllers\Api\WishlistController;
 use App\Http\Controllers\TranslationController;
-use App\Http\Controllers\AuthController;
+use App\Http\Controllers\Api\AuthController; 
 
 /*
 |--------------------------------------------------------------------------
@@ -21,7 +21,7 @@ use App\Http\Controllers\AuthController;
 */
 
 Route::group([
-    'middleware' => ['api', 'CheckPassword'],
+    'middleware' => ['api'],
     'prefix' => 'auth'
 ], function ($router) {
     Route::post('/login', [AuthController::class, 'login']);
@@ -30,6 +30,13 @@ Route::group([
     Route::post('/refresh', [AuthController::class, 'refresh']);
     Route::get('/user-profile', [AuthController::class, 'userProfile']);    
 });
+
+Route::group(['middleware' => ['api', 'auth:api', 'role:admin']], function () {
+});
+
+Route::group(['middleware' => ['api', 'auth:api', 'role:user']], function () {
+});
+
 
 Route::get('/products', [ProductController::class, 'index']);
 Route::post('/products', [ProductController::class, 'store']);
