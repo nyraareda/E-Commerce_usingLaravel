@@ -16,9 +16,10 @@ class ProductController extends Controller
 {
     use ApiResponse;
 
+    
     public function index()
     {
-        $products = Product::with('category')->get();
+        $products = Product::with(['promotion', 'category'])->get();
 
         return ProductWithCategoryResource::collection($products);
     }
@@ -68,14 +69,14 @@ class ProductController extends Controller
         return $this->successResponse(new ProductWithCategoryResource($product), 'Product added successfully');
     }
 
-    //
+    
     public function update($id, ProductRequest $request)
     {
         $product = Product::find($id);
 
-        if (! $product) {
-            return $this->errorResponse('Product not found', 404);
-        }
+        // if (! $product) {
+        //     return $this->errorResponse('Product not found', 404);
+        // }
 
         $updatedFields = [];
 
@@ -147,4 +148,23 @@ class ProductController extends Controller
 
         return $this->successResponse(new ProductWithCategoryResource($product), 'Product deleted successfully');
     }
+
+    //Search about the productTitle
+    public function search(Request $request)
+    {
+        $query = $request->input('query');
+
+        if (!$query) {
+            return $this->errorResponse('Query parameter is required', 400);
+        }
+
+        $products = Product::where('title', 'LIKE', '%' . $query . '%')
+            ->with(['promotion', 'category'])
+            ->get();
+
+        return ProductWithCategoryResource::collection($products);
+    }
+    
+
+   
 }

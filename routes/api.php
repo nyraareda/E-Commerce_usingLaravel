@@ -44,6 +44,8 @@ Route::get('/products/{id}', [ProductController::class, 'show']);
 Route::patch('/products/{id}', [ProductController::class, 'update']);
 Route::delete('/products/{id}', [ProductController::class, 'destroy']);
 
+Route::post('/products/search', [ProductController::class, 'search']);
+
 Route::get('/category', [CategoryController::class, 'index']);
 Route::post('/category', [CategoryController::class, 'store']);
 Route::get('/category/{id}', [CategoryController::class, 'show']);
