@@ -8,6 +8,7 @@ use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use Laravel\Sanctum\HasApiTokens;
 use Tymon\JWTAuth\Contracts\JWTSubject;
+use App\Models\Storage;
 
 class User extends Authenticatable implements JWTSubject
 {
@@ -56,7 +57,7 @@ class User extends Authenticatable implements JWTSubject
      */
     public function getImageAttribute($value)
     {
-        return $value ? Storage::url($value) : null;
+        return $value ? asset('storage/' . $value) : null;
     }
 
 

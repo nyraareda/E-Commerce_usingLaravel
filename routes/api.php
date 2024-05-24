@@ -4,8 +4,8 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Api\ProductController;
 use App\Http\Controllers\Api\CategoryController;
-use App\Http\Controllers\Api\PromotionController;
-use App\Http\Controllers\AuthController;
+use App\Http\Controllers\Api\AuthController;
+
 /*
 |--------------------------------------------------------------------------
 | API Routes
@@ -20,9 +20,8 @@ use App\Http\Controllers\AuthController;
 // Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
 //     return $request->user();
 // });
-
 Route::group([
-    'middleware' => 'api',
+    'middleware' => ['api','CheckPassword'],
     'prefix' => 'auth'
 ], function ($router) {
     Route::post('/login', [AuthController::class, 'login']);
@@ -32,8 +31,7 @@ Route::group([
     Route::get('/user-profile', [AuthController::class, 'userProfile']);    
 });
 
-
-
+// 'CheckPassword'
 Route::get('/products', [ProductController::class, 'index']);
 Route::post('/products', [ProductController::class, 'store']);
 Route::get('/products/{id}', [ProductController::class, 'show']);
@@ -45,10 +43,3 @@ Route::post('/category', [CategoryController::class, 'store']);
 Route::get('/category/{id}', [CategoryController::class, 'show']);
 Route::put('/category/{id}', [CategoryController::class, 'update']);
 Route::delete('/category/{id}', [CategoryController::class, 'destroy']);
-
-Route::get('/promotion',[PromotionController::class,'index']);
-Route::post('/promotion',[PromotionController::class,'store']);
-Route::get('/promotion/{id}', [PromotionController::class, 'show']);
-Route::put('/promotion/{id}', [PromotionController::class, 'update']);
-Route::delete('/promotion/{id}', [PromotionController::class, 'destroy']);
-
