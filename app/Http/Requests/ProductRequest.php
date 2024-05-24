@@ -23,13 +23,14 @@ class ProductRequest extends FormRequest
     public function rules()
     {
         $rules = [
-            'title' => ["required", "min:3",Rule::unique('products', 'title')],
-            "details" => ["required", "min:10"],
-            'image' => ['image', 'mimes:jpg,png'],
-            ];
-            if ($this->isMethod('PUT')) {
-                $rules['title'][] = Rule::unique('products')->ignore($this->route('product'));
-            }
-            return $rules;
+            'title' => ['required', 'min:3'],
+            'details' => ['required', 'min:10'],
+            'image' => ['nullable', 'image', 'mimes:jpg,png'],
+        ];
+        if ($this->isMethod('post')) {
+            $rules['title'][] = Rule::unique('products', 'title');
+        }
+
+        return $rules;
     }
 }
