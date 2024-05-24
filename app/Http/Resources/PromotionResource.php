@@ -16,11 +16,10 @@ class PromotionResource extends JsonResource
     {
         return [
             'id' => $this->id,
-            'product_id' => $this->product_id,
             'discount_percentage' => $this->discount_percentage,
             'start_date' => $this->start_date,
             'end_date' => $this->end_date,
-            'products_details_have_this_promotion' => new ProductResource($this->product),
+            'products' => ProductResource::collection($this->whenLoaded('products')),
         ];
     }
 }
