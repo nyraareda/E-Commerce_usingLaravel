@@ -9,8 +9,12 @@ class Promotion extends Model
 {
     use HasFactory;
 
-    public function product(){
+    // public function product(){
 
-        return $this->belongsTo(Product::class);
+    //     return $this->belongsTo(Product::class);
+    // }
+    public function products()
+    {
+        return $this->hasMany(Product::class);
     }
 }
