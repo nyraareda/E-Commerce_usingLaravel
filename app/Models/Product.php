@@ -15,7 +15,7 @@ class Product extends Model
     {
         return $this->hasOne(ProductCategory::class);
     }
-    
+
     public function category()
     {
         return $this->belongsToMany(Category::class, 'product_categories', 'product_id', 'category_id');
@@ -24,5 +24,10 @@ class Product extends Model
     {
         return $this->belongsTo(Promotion::class);
     }
+    public function orderItems()
+{
+    return $this->hasMany(OrderItem::class);
+}
+
 
 }

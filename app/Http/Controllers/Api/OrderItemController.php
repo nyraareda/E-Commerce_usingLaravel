@@ -15,10 +15,11 @@ class OrderItemController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function index()
-    {
-        $orderItems = OrderItem::all();
-        return response()->json($orderItems);
-    }
+{
+    $orderItems = OrderItem::with('product')->get();
+    return response()->json($orderItems);
+}
+
 
     /**
      * Store a newly created resource in storage.
