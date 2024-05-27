@@ -56,11 +56,10 @@ class User extends Authenticatable implements JWTSubject
      * @return string|null
      */
 
-public function getImageAttribute($value)
-{
-    $host = env('APP_URL', 'http://localhost');
-    return $value ? $host.'/storage/'.$value : null;
-}
+        public function getImageAttribute($value)
+        {
+            return $value ? asset( $value) : null;
+        }
 
 
 

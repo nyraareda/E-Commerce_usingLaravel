@@ -9,7 +9,6 @@ use App\Http\Controllers\Api\PromotionController;
 use App\Http\Controllers\Api\WishlistController;
 use App\Http\Controllers\TranslationController;
 use App\Http\Controllers\Api\AuthController;
-use App\Http\Controllers\AuthController;
 use App\Http\Controllers\api\CartController;
 use App\Http\Controllers\api\CartItemController;
 use App\Http\Controllers\api\OrderItemController;

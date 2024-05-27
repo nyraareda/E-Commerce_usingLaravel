@@ -156,16 +156,19 @@ class AuthController extends Controller
     
         $user = auth()->user();
     
-        
         if ($request->has('username')) {
             $user->username = $request->username;
         }
     
         if ($request->hasFile('image')) {
-            // Handle image upload and update the user's image attribute
-            $imagePath = $request->file('image')->store('images', 'public');
+            $image = $request->file('image');
+            $imageName = time().'.'.$image->getClientOriginalExtension();
+            $image->move(public_path('images'), $imageName);
+            $imagePath = 'images/'.$imageName;
+            // Update user's image path
             $user->image = $imagePath;
         }
+    
     
         if ($request->has('gender')) {
             $user->gender = $request->gender;
@@ -174,7 +177,9 @@ class AuthController extends Controller
     
         $user->save();
     
+        // Return a JSON response for successful profile update
         return response()->json(['message' => 'Profile updated successfully', 'user' => $user]);
     }
+    
     
 }
