@@ -39,7 +39,6 @@ class CartItemController extends Controller
      * @return \Illuminate\Http\Response
      */
 
-
     /**
      * Update the specified resource in storage.
      *
