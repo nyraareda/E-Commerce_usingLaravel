@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Middleware\CheckPassword;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Api\ProductController;
@@ -22,13 +23,15 @@ use App\Http\Controllers\Api\AuthController;
 
 Route::group([
     'middleware' => ['api'],
-    'prefix' => 'auth'
+        'prefix' => 'auth'
 ], function ($router) {
     Route::post('/login', [AuthController::class, 'login']);
     Route::post('/register', [AuthController::class, 'register']);
     Route::post('/logout', [AuthController::class, 'logout']);
     Route::post('/refresh', [AuthController::class, 'refresh']);
-    Route::get('/user-profile', [AuthController::class, 'userProfile']);    
+    Route::get('/user-profile', [AuthController::class, 'userProfile']); 
+    Route::put('/user-profile/{id}', [AuthController::class, 'updateProfile']);
+   
 });
 
 Route::group(['middleware' => ['api', 'auth:api', 'role:admin']], function () {
