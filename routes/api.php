@@ -90,6 +90,7 @@ Route::post('/translate', [TranslationController::class, 'translate']);
     Route::put('/cart/{id}', [CartController::class, 'update']);
     Route::delete('/cart/{id}', [CartController::class, 'destroy']);
 
+
     Route::get('/cart-items', [CartItemController::class, 'index']);
     Route::post('/cart-items', [CartItemController::class, 'store']);
     Route::get('/cart-items/{id}', [CartItemController::class, 'show']);
@@ -113,6 +114,9 @@ Route::post('/translate', [TranslationController::class, 'translate']);
 //     Route::put('/cart-items/{id}', [CartItemController::class, 'update']);
 //     Route::delete('/cart-items/{id}', [CartItemController::class, 'destroy']);
 // });
+
+
+
 
 
 
