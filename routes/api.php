@@ -35,19 +35,31 @@ Route::group([
 });
 
 Route::group(['middleware' => ['api', 'auth:api', 'role:admin']], function () {
+    Route::get('/products', [ProductController::class, 'index']);
+    Route::post('/products', [ProductController::class, 'store']);
+    Route::get('/products/{id}', [ProductController::class, 'show']);
+    Route::patch('/products/{id}', [ProductController::class, 'update']);
+    Route::delete('/products/{id}', [ProductController::class, 'destroy']);
+    Route::post('/products/search', [ProductController::class, 'search']);
 });
 
 Route::group(['middleware' => ['api', 'auth:api', 'role:user']], function () {
+    Route::get('/products', [ProductController::class, 'index']);
+    Route::get('/products/{id}', [ProductController::class, 'show']);
+    Route::post('/wishlist', [WishlistController::class, 'store']);
+    Route::post('/products/search', [ProductController::class, 'search']);
+    Route::get('/wishlist', [WishlistController::class, 'index']);
+
 });
 
 
-Route::get('/products', [ProductController::class, 'index']);
-Route::post('/products', [ProductController::class, 'store']);
-Route::get('/products/{id}', [ProductController::class, 'show']);
-Route::patch('/products/{id}', [ProductController::class, 'update']);
-Route::delete('/products/{id}', [ProductController::class, 'destroy']);
+// Route::get('/products', [ProductController::class, 'index']);
+// Route::post('/products', [ProductController::class, 'store']);
+// Route::get('/products/{id}', [ProductController::class, 'show']);
+// Route::patch('/products/{id}', [ProductController::class, 'update']);
+// Route::delete('/products/{id}', [ProductController::class, 'destroy']);
 
-Route::post('/products/search', [ProductController::class, 'search']);
+// Route::post('/products/search', [ProductController::class, 'search']);
 
 Route::get('/category', [CategoryController::class, 'index']);
 Route::post('/category', [CategoryController::class, 'store']);
@@ -61,8 +73,6 @@ Route::get('/promotion/{id}', [PromotionController::class, 'show']);
 Route::put('/promotion/{id}', [PromotionController::class, 'update']);
 Route::delete('/promotion/{id}', [PromotionController::class, 'destroy']);
 
-Route::post('/wishlist', [WishlistController::class, 'store']);
 Route::delete('/wishlist', [WishlistController::class, 'destroy']);
-Route::get('/wishlist', [WishlistController::class, 'index']);
 
 Route::post('/translate', [TranslationController::class, 'translate']);
