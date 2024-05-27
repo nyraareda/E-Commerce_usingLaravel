@@ -73,27 +73,27 @@ Route::post('/translate', [TranslationController::class, 'translate']);
 //Route::group(['middleware' => ['api', 'auth:api', 'role:admin']], function () {
     Route::get('/order', [OrderController::class, 'index']);
     Route::post('/order', [OrderController::class, 'store']);
-    Route::get('/order/{id}', [OrderController::class, 'show']);
+    Route::get('/order/{user_id}', [OrderController::class, 'show']);
     Route::put('/order/{id}', [OrderController::class, 'update']);
     Route::delete('/order/{id}', [OrderController::class, 'destroy']);
 
     Route::get('/order-items', [OrderItemController::class, 'index']);
     Route::post('/order-items', [OrderItemController::class, 'store']);
-    Route::get('/order-items/{id}', [OrderItemController::class, 'show']);
+    Route::get('/order-items/{user_id}', [OrderItemController::class, 'show']);
     Route::put('/order-items/{id}', [OrderItemController::class, 'update']);
     Route::delete('/order-items/{id}', [OrderItemController::class, 'destroy']);
 
 
     Route::get('/cart', [CartController::class, 'index']);
     Route::post('/cart', [CartController::class, 'store']);
-    Route::get('/cart/{id}', [CartController::class, 'show']);
+    Route::get('/cart/{user_id}', [CartController::class, 'show']);
     Route::put('/cart/{id}', [CartController::class, 'update']);
     Route::delete('/cart/{id}', [CartController::class, 'destroy']);
 
 
     Route::get('/cart-items', [CartItemController::class, 'index']);
     Route::post('/cart-items', [CartItemController::class, 'store']);
-    Route::get('/cart-items/{id}', [CartItemController::class, 'show']);
+    Route::get('/cart-items/{user_id}', [CartItemController::class, 'show']);
     Route::put('/cart-items/{id}', [CartItemController::class, 'update']);
     Route::delete('/cart-items/{id}', [CartItemController::class, 'destroy']);
 //});

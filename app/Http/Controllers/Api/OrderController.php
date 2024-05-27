@@ -38,11 +38,12 @@ class OrderController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show($id)
-    {
-        $order = Order::findOrFail($id);
-        return response()->json($order);
-    }
+    public function show($user_id)
+{
+    $orders = Order::where('user_id', $user_id)->get();
+    return response()->json($orders);
+}
+
 
     /**
      * Update the specified resource in storage.

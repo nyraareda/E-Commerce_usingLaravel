@@ -39,11 +39,11 @@ class OrderItemController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show($id)
-    {
-        $orderItem = OrderItem::findOrFail($id);
-        return response()->json($orderItem);
-    }
+    public function show($user_id)
+{
+    $orders = OrderItem::where('user_id', $user_id)->get();
+    return response()->json($orderItem);
+}
 
     /**
      * Update the specified resource in storage.

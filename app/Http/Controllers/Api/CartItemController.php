@@ -16,7 +16,7 @@ class CartItemController extends Controller
      */
     public function index()
     {
-        $cartItems = CartItem::all();
+        $cartItems = CartItem::with('product')->get();
         return response()->json($cartItems);
     }
 
@@ -26,10 +26,10 @@ class CartItemController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function show($user_id)
     {
-        $cartItem = CartItem::create($request->all());
-        return response()->json($cartItem, 201);
+        $cartItem = CartItem::where('user_id', $user_id)->get();
+        return response()->json($cartItem);
     }
 
     /**
@@ -38,11 +38,7 @@ class CartItemController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show($id)
-    {
-        $cartItem = CartItem::findOrFail($id);
-        return response()->json($cartItem);
-    }
+
 
     /**
      * Update the specified resource in storage.
