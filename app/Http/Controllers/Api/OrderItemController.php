@@ -15,10 +15,11 @@ class OrderItemController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function index()
-    {
-        $orderItems = OrderItem::all();
-        return response()->json($orderItems);
-    }
+{
+    $orderItems = OrderItem::with('product')->get();
+    return response()->json($orderItems);
+}
+
 
     /**
      * Store a newly created resource in storage.
@@ -38,11 +39,11 @@ class OrderItemController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show($id)
-    {
-        $orderItem = OrderItem::findOrFail($id);
-        return response()->json($orderItem);
-    }
+    public function show($user_id)
+{
+    $orders = OrderItem::where('user_id', $user_id)->get();
+    return response()->json($orderItem);
+}
 
     /**
      * Update the specified resource in storage.

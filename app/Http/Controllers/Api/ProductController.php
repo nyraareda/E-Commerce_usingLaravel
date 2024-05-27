@@ -15,6 +15,7 @@ use Illuminate\Support\Facades\File;
 class ProductController extends Controller
 {
     use ApiResponse;
+    // use ApiResponse;
 
     
     public function index()
