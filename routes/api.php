@@ -41,7 +41,7 @@ Route::group([
     Route::get('email/verify/{id}', [AuthController::class, 'verify'])->name('verification.verify');
 });
 
-Route::group(['middleware' => ['api', 'auth:api', 'role:admin']], function () {
+//Route::group(['middleware' => ['api', 'auth:api', 'role:admin']], function () {
     Route::get('/products', [ProductController::class, 'index']);
     Route::post('/products', [ProductController::class, 'store']);
     Route::get('/products/{id}', [ProductController::class, 'show']);
@@ -72,33 +72,33 @@ Route::group(['middleware' => ['api', 'auth:api', 'role:admin']], function () {
     Route::get('/cart-items/{id}', [CartItemController::class, 'show']);
     Route::put('/cart-items/{id}', [CartItemController::class, 'update']);
     Route::delete('/cart-items/{id}', [CartItemController::class, 'destroy']);
-});
+//});
 
-Route::group(['middleware' => ['api', 'auth:api', 'role:user']], function () {
-    Route::get('/products', [ProductController::class, 'index']);
-    Route::get('/products/{id}', [ProductController::class, 'show']);
-    Route::post('/wishlist', [WishlistController::class, 'store']);
-    Route::get('/wishlist', [WishlistController::class, 'index']);
-    Route::post('/products/search', [ProductController::class, 'search']);
-    Route::get('/order/{id}', [OrderController::class, 'show']);
-    Route::get('/order/{user_id}', [OrderController::class, 'show']);
-    Route::delete('/order/{id}', [OrderController::class, 'destroy']);
+// Route::group(['middleware' => ['api', 'auth:api', 'role:user']], function () {
+//     Route::get('/products', [ProductController::class, 'index']);
+//     Route::get('/products/{id}', [ProductController::class, 'show']);
+//     Route::post('/wishlist', [WishlistController::class, 'store']);
+//     Route::get('/wishlist', [WishlistController::class, 'index']);
+//     Route::post('/products/search', [ProductController::class, 'search']);
+//     Route::get('/order/{id}', [OrderController::class, 'show']);
+//     Route::get('/order/{user_id}', [OrderController::class, 'show']);
+//     Route::delete('/order/{id}', [OrderController::class, 'destroy']);
 
-    Route::get('/cart', [CartController::class, 'index']);
-    Route::post('/cart', [CartController::class, 'store']);
-    Route::get('/cart/{user_id}', [CartController::class, 'show']);
-    Route::put('/cart/{id}', [CartController::class, 'update']);
-    Route::delete('/cart/{id}', [CartController::class, 'destroy']);
+//     Route::get('/cart', [CartController::class, 'index']);
+//     Route::post('/cart', [CartController::class, 'store']);
+//     Route::get('/cart/{user_id}', [CartController::class, 'show']);
+//     Route::put('/cart/{id}', [CartController::class, 'update']);
+//     Route::delete('/cart/{id}', [CartController::class, 'destroy']);
 
-    Route::get('/cart-items', [CartItemController::class, 'index']);
-    Route::post('/cart-items', [CartItemController::class, 'store']);
-    Route::get('/cart-items/{user_id}', [CartItemController::class, 'show']);
-    Route::put('/cart-items/{id}', [CartItemController::class, 'update']);
-    Route::delete('/cart-items/{id}', [CartItemController::class, 'destroy']);
+//     Route::get('/cart-items', [CartItemController::class, 'index']);
+//     Route::post('/cart-items', [CartItemController::class, 'store']);
+//     Route::get('/cart-items/{user_id}', [CartItemController::class, 'show']);
+//     Route::put('/cart-items/{id}', [CartItemController::class, 'update']);
+//     Route::delete('/cart-items/{id}', [CartItemController::class, 'destroy']);
 
 
 
-});
+// });
 
 Route::get('/category', [CategoryController::class, 'index']);
 Route::post('/category', [CategoryController::class, 'store']);

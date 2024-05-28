@@ -9,43 +9,25 @@ use App\Http\Controllers\Controller;
 
 class CartItemController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
+
     public function index()
     {
         $cartItems = CartItem::with('product')->get();
         return response()->json($cartItems);
     }
 
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
-     */
-    public function show($user_id)
-    {
-        $cartItem = CartItem::where('user_id', $user_id)->get();
-        return response()->json($cartItem);
-    }
 
-    /**
-     * Display the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
+    public function show($id)
+{
+    $cartItems = CartItem::where('cart_id', $id)
+                         ->with('product')
+                         ->get();
 
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
+    return response()->json($cartItems);
+}
+
+
+
     public function update(Request $request, $id)
     {
         $cartItem = CartItem::findOrFail($id);
@@ -53,12 +35,7 @@ class CartItemController extends Controller
         return response()->json($cartItem);
     }
 
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
+
     public function destroy($id)
     {
         $cartItem = CartItem::findOrFail($id);
