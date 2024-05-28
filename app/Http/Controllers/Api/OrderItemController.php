@@ -39,7 +39,7 @@ class OrderItemController extends Controller
         return response()->json($orderItem);
     }
 
-    
+
     public function destroy($id)
     {
         $orderItem = OrderItem::findOrFail($id);
@@ -47,3 +47,5 @@ class OrderItemController extends Controller
         return response()->json(null, 204);
     }
 }
+
+//push
