@@ -80,6 +80,8 @@ Route::group(['middleware' => ['api', 'auth:api', 'role:user']], function () {
     Route::post('/wishlist', [WishlistController::class, 'store']);
     Route::get('/wishlist', [WishlistController::class, 'index']);
     Route::post('/products/search', [ProductController::class, 'search']);
+    Route::get('/order/{id}', [OrderController::class, 'show']);
+
 });
 
 Route::get('/category', [CategoryController::class, 'index']);
@@ -93,5 +95,4 @@ Route::post('/promotion', [PromotionController::class, 'store']);
 Route::get('/promotion/{id}', [PromotionController::class, 'show']);
 Route::put('/promotion/{id}', [PromotionController::class, 'update']);
 Route::delete('/promotion/{id}', [PromotionController::class, 'destroy']);
-
 Route::post('/translate', [TranslationController::class, 'translate']);
