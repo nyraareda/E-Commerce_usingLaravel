@@ -11,6 +11,10 @@ use App\Models\ProductCategory;
 use App\Trait\ApiResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\File;
+use Illuminate\Support\Facades\Validator;
+use Illuminate\Support\Facades\Log;
+
+
 
 class ProductController extends Controller
 {
@@ -70,62 +74,43 @@ class ProductController extends Controller
         return $this->successResponse(new ProductWithCategoryResource($product), 'Product added successfully');
     }
 
-    
-    public function update($id, ProductRequest $request)
+
+    public function update(Request $request, $id)
     {
+        // Find the product by its ID
         $product = Product::find($id);
 
-        // if (! $product) {
-        //     return $this->errorResponse('Product not found', 404);
-        // }
-
-        $updatedFields = [];
-
-        if ($request->has('title')) {
-            $product->title = $request->title;
-            $updatedFields[] = 'title';
+        if (!$product) {
+            return response()->json(['error' => 'Product not found'], 404);
         }
 
-        if ($request->has('price')) {
-            $product->price = $request->price;
-            $updatedFields[] = 'price';
+        // Validate the request data
+        $validator = Validator::make($request->all(), [
+            'title' => 'sometimes|required|string|max:255',
+            'price' => 'sometimes|required|numeric',
+            'details' => 'sometimes|nullable|string',
+            'image' => 'nullable|file|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
+        ]);
+
+        if ($validator->fails()) {
+            return response()->json($validator->errors(), 400);
         }
 
-        if ($request->has('details')) {
-            $product->details = $request->details;
-            $updatedFields[] = 'details';
-        }
+        // Update the product with validated data
+        $product->fill($validator->validated());
 
         if ($request->hasFile('image')) {
-            $originalFilename = $request->image->getClientOriginalName();
-            $request->image->move(public_path('images'), $originalFilename);
-            $product->image = $originalFilename;
-            $updatedFields[] = 'image';
+            $imagePath = $request->file('image')->store('images', 'public');
+            $product->image = basename($imagePath);
         }
 
-        $product->save();
+        // Save the updated product
+        $result=$product->save();
 
-        // Check if the category exists and update category association
-        if ($request->has('category_id')) {
-            $category = Category::find($request->category_id);
-            if (! $category) {
-                return $this->errorResponse('Category not found', 404);
-            }
-            ProductCategory::updateOrCreate(
-                ['product_id' => $product->id],
-                ['category_id' => $request->category_id]
-            );
-            $updatedFields[] = 'category_id';
-        }
-
-        if (empty($updatedFields)) {
-            return $this->errorResponse('No fields to update', 400);
-        }
-
-        $updatedFieldsString = implode(', ', $updatedFields);
-
-        return $this->successResponse(new ProductWithCategoryResource($product), "Product updated successfully. Updated fields: {$updatedFieldsString}");
+        return response()->json(['message' => 'Product updated successfully', 'product' => $result]);
     }
+    
+    
 
     public function destroy(Request $request, $id)
     {

@@ -38,7 +38,7 @@ Route::group(['middleware' => ['api', 'auth:api', 'role:admin']], function () {
     Route::get('/products', [ProductController::class, 'index']);
     Route::post('/products', [ProductController::class, 'store']);
     Route::get('/products/{id}', [ProductController::class, 'show']);
-    Route::patch('/products/{id}', [ProductController::class, 'update']);
+    Route::put('/products/{id}', [ProductController::class, 'update']);
     Route::delete('/products/{id}', [ProductController::class, 'destroy']);
     Route::post('/products/search', [ProductController::class, 'search']);
 });
@@ -52,14 +52,6 @@ Route::group(['middleware' => ['api', 'auth:api', 'role:user']], function () {
 
 });
 
-
-// Route::get('/products', [ProductController::class, 'index']);
-// Route::post('/products', [ProductController::class, 'store']);
-// Route::get('/products/{id}', [ProductController::class, 'show']);
-// Route::patch('/products/{id}', [ProductController::class, 'update']);
-// Route::delete('/products/{id}', [ProductController::class, 'destroy']);
-
-// Route::post('/products/search', [ProductController::class, 'search']);
 
 Route::get('/category', [CategoryController::class, 'index']);
 Route::post('/category', [CategoryController::class, 'store']);
