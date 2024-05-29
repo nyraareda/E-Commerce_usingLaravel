@@ -62,6 +62,7 @@ Route::group(['middleware' => ['api', 'auth:api', 'role:admin']], function () {
     Route::get('/order-items/{id}', [OrderItemController::class, 'show']);
     Route::put('/order-items/{id}', [OrderItemController::class, 'update']);
     Route::delete('/order-items/{id}', [OrderItemController::class, 'destroy']);
+    Route::delete('order-items', [OrderItemController::class, 'destroyAll']);
 
     Route::get('/cart', [CartController::class, 'index']);
     Route::post('/cart', [CartController::class, 'store']);
@@ -70,10 +71,12 @@ Route::group(['middleware' => ['api', 'auth:api', 'role:admin']], function () {
     Route::delete('/cart/{id}', [CartController::class, 'destroy']);
 
     Route::get('/cart-items', [CartItemController::class, 'index']);
-    Route::post('/cart-items', [CartItemController::class, 'store']);
+    Route::post('cart-items', [CartItemController::class, 'store']);
     Route::get('/cart-items/{id}', [CartItemController::class, 'show']);
     Route::put('/cart-items/{id}', [CartItemController::class, 'update']);
     Route::delete('/cart-items/{id}', [CartItemController::class, 'destroy']);
+    Route::delete('/cart-items', [CartItemController::class, 'destroyAll']);
+
 });
 
 Route::group(['middleware' => ['api', 'auth:api', 'role:user']], function () {

@@ -16,6 +16,20 @@ class CartItemController extends Controller
         return response()->json($cartItems);
     }
 
+    public function store(Request $request)
+{
+    $validatedData = $request->validate([
+        'cart_id' => 'required|exists:carts,id',
+        'product_id' => 'required|exists:products,id',
+        'quantity' => 'required|integer|min:1',
+        'price' => 'required|numeric|min:0',
+    ]);
+
+    $cartItem = CartItem::create($validatedData);
+
+    return response()->json($cartItem, 201);
+}
+
 
     public function show($id)
 {
@@ -42,4 +56,12 @@ class CartItemController extends Controller
         $cartItem->delete();
         return response()->json(null, 204);
     }
+
+    public function destroyAll()
+{
+    CartItem::truncate();
+
+    return response()->json(null, 204);
+}
+
 }
