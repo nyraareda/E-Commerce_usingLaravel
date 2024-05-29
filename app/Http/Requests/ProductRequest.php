@@ -22,15 +22,27 @@ class ProductRequest extends FormRequest
      */
     public function rules()
     {
-        $rules = [
-            'title' => ['required', 'min:3'],
-            'details' => ['required', 'min:10'],
-            'image' => ['nullable', 'image', 'mimes:jpg,png'],
-        ];
-        if ($this->isMethod('post')) {
-            $rules['title'][] = Rule::unique('products', 'title');
-        }
+        // $rules = [
+        //     'title' => ['required', 'min:3'],
+        //     'details' => ['required', 'min:10'],
+        //     'image' => ['nullable', 'image', 'mimes:jpg,png'],
+        // ];
+        // if ($this->isMethod('post')) {
+        //     $rules['title'][] = Rule::unique('products', 'title');
+        // }
 
+        // return $rules;
+        $isUpdate = $this->route('id') !== null;
+
+        // Conditional validation rules
+        $rules = [
+            'title' => $isUpdate ? 'sometimes|required|string|max:255' : 'required|string|max:255',
+            'price' => 'sometimes|required|numeric|min:0',
+            'details' => $isUpdate ? 'sometimes|required|string' : 'required|string',
+            'image' => 'sometimes|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
+            'category_id' => 'sometimes|exists:categories,id',
+        ];
+    
         return $rules;
     }
 }

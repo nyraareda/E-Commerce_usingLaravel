@@ -105,6 +105,7 @@ Route::group(['middleware' => ['api', 'auth:api', 'role:user']], function () {
 
 });
 
+
 Route::get('/category', [CategoryController::class, 'index']);
 Route::post('/category', [CategoryController::class, 'store']);
 Route::get('/category/{id}', [CategoryController::class, 'show']);
