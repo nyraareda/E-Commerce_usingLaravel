@@ -18,11 +18,20 @@ class OrderItemController extends Controller
 
 
 
-    public function store(Request $request)
-    {
-        $orderItem = OrderItem::create($request->all());
-        return response()->json($orderItem, 201);
-    }
+public function store(Request $request)
+{
+    $validatedData = $request->validate([
+        'order_id' => 'required|exists:orders,id',
+        'product_id' => 'required|exists:products,id',
+        'quantity' => 'required|integer|min:1',
+        'price' => 'required|numeric|min:0',
+    ]);
+
+    $orderItem = OrderItem::create($validatedData);
+
+    return response()->json($orderItem, 201);
+}
+
 
 
     public function show($user_id)
@@ -46,6 +55,14 @@ class OrderItemController extends Controller
         $orderItem->delete();
         return response()->json(null, 204);
     }
+
+    public function destroyAll()
+{
+    OrderItem::truncate();
+
+    return response()->json(null, 204);
+}
+
 }
 
 //push
